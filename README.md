@@ -14,7 +14,19 @@ Die Intelligenz des großen Modells steckt also im Plan und nicht in der Fleißa
 
 **Voraussetzung:** Claude Code **2.1.293 oder neuer**. Die Version zeigt `claude --version`, aktualisieren geht mit `claude update`. Ältere Versionen kennen Haiku 5.5 nicht.
 
-Im Terminal:
+Ein Neustart ist nicht nötig, es gibt zwei Wege.
+
+### Weg A: Claude installiert selbst (am einfachsten)
+
+Diesen Satz in eine laufende Claude-Code-Session kopieren, im Terminal oder in der Desktop-App:
+
+```text
+Installiere das Claude-Code-Plugin playbook@playbook-delegation aus dem Marketplace 9fw2pq8sgb-art/claude-playbook-delegation mit "claude plugin marketplace add" und "claude plugin install". Sag mir danach genau, was ich eintippen muss, damit es in dieser Session sofort aktiv ist.
+```
+
+Claude installiert das Plugin und sagt dir danach, dass du einmal `/reload-plugins` eintippen musst.
+
+### Weg B: im Terminal
 
 ```bash
 claude plugin marketplace add 9fw2pq8sgb-art/claude-playbook-delegation
@@ -24,7 +36,13 @@ claude plugin marketplace add 9fw2pq8sgb-art/claude-playbook-delegation
 claude plugin install playbook@playbook-delegation
 ```
 
-Danach Claude Code neu starten, in der Desktop-App eine neue Session öffnen. Prüfen:
+**Danach wichtig:** In jeder Session, die schon offen ist, einmal eintippen:
+
+```text
+/reload-plugins
+```
+
+Das funktioniert auch in der Desktop-App, und ein Neustart der App ist nicht nötig. Neue Sessions laden das Plugin von selbst. Prüfen:
 
 ```bash
 claude plugin list

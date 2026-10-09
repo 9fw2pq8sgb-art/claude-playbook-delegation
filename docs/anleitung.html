@@ -330,7 +330,7 @@ DATEIEN · GATE · OFFEN</pre></div>
 <section id="installation">
   <div class="wrap">
     <span class="label">07 · Installation</span>
-    <h2>In drei Schritten einrichten</h2>
+    <h2>In vier Schritten einrichten</h2>
     <p>Voraussetzung: Claude Code <strong>2.1.293 oder neuer</strong>. Version prüfen mit <code>claude --version</code>. Bei älteren Versionen ist Haiku 5.5 nicht verfügbar.</p>
     <div class="codebox" style="max-width:44rem"><pre id="c0">claude --version</pre><button class="btn ghost" type="button" data-copy="c0">Kopieren</button></div>
 
@@ -346,9 +346,21 @@ DATEIEN · GATE · OFFEN</pre></div>
     </div>
     <div class="step">
       <span class="nr">SCHRITT 3</span>
-      <h3>Claude Code neu starten und aufrufen</h3>
-      <p style="margin:0">Nach dem Neustart im Chat aufrufen. Alternativ genügt der Satz „delegier das“.</p>
-      <div class="codebox"><pre id="c3">/playbook:delegieren</pre><button class="btn ghost" type="button" data-copy="c3">Kopieren</button></div>
+      <h3>In offenen Sessions aktivieren</h3>
+      <p style="margin:0">Kein Neustart nötig. In jeder bereits offenen Session (auch in der Desktop-App) einmal eintippen. Neue Sessions laden das Plugin automatisch.</p>
+      <div class="codebox"><pre id="c3">/reload-plugins</pre><button class="btn ghost" type="button" data-copy="c3">Kopieren</button></div>
+    </div>
+    <div class="step">
+      <span class="nr">SCHRITT 4</span>
+      <h3>Aufrufen</h3>
+      <p style="margin:0">Im Chat aufrufen. Alternativ genügt der Satz „delegier das“.</p>
+      <div class="codebox"><pre id="c4">/playbook:delegieren</pre><button class="btn ghost" type="button" data-copy="c4">Kopieren</button></div>
+    </div>
+    <div class="step">
+      <span class="nr">ALTERNATIVE</span>
+      <h3>Claude installieren lassen</h3>
+      <p style="margin:0">Diesen Satz in eine laufende Session kopieren. Claude installiert und sagt danach, was einzutippen ist.</p>
+      <div class="codebox"><pre id="c5">Installiere das Claude-Code-Plugin playbook@playbook-delegation aus dem Marketplace 9fw2pq8sgb-art/claude-playbook-delegation mit "claude plugin marketplace add" und "claude plugin install". Sag mir danach genau, was ich eintippen muss, damit es in dieser Session sofort aktiv ist.</pre><button class="btn ghost" type="button" data-copy="c5">Kopieren</button></div>
     </div>
     <div class="box"><p style="margin:0">Liegt das Repository privat auf GitHub, ist für Schritt 1 ein Zugriff auf dieses Repository nötig. Ohne Berechtigung schlägt das Hinzufügen des Marketplace fehl.</p></div>
   </div>
