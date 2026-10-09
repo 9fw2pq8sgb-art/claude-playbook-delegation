@@ -47,7 +47,7 @@ Claude entscheidet selbst, welche Teile an Haiku oder Sonnet gehen und welche es
 
 ### 1. Der Ablauf
 
-![Ablauf: Auftrag, Opus zerlegt, Playbooks, Haiku und Sonnet arbeiten parallel, Gate, Opus prüft nach, fertig](docs/img/ablauf.svg)
+![Ablauf: Auftrag, Opus zerlegt, Playbooks, Haiku und Sonnet arbeiten parallel, Gate, Opus prüft nach, fertig](https://raw.githubusercontent.com/9fw2pq8sgb-art/claude-playbook-delegation/main/docs/img/ablauf.svg)
 
 1. **Auftrag:** Du beschreibst die Aufgabe.
 2. **Opus zerlegt:** Opus teilt sie in Stücke und entscheidet bei jedem Stück, ob Delegieren sich lohnt. Das ist der Fall, sobald das Playbook kürzer ist als die Arbeit.
@@ -59,7 +59,7 @@ Claude entscheidet selbst, welche Teile an Haiku oder Sonnet gehen und welche es
 
 ### 2. Die Modellwahl: eine Frage
 
-![Modellwahl: Muss der Agent etwas entscheiden, das nicht im Playbook steht?](docs/img/modellwahl.svg)
+![Modellwahl: Muss der Agent etwas entscheiden, das nicht im Playbook steht?](https://raw.githubusercontent.com/9fw2pq8sgb-art/claude-playbook-delegation/main/docs/img/modellwahl.svg)
 
 | Antwort | Modell | Typische Arbeit |
 |---|---|---|
@@ -87,7 +87,7 @@ Fragt ein Agent nach oder rät er, war das Playbook zu dünn. An einem zu kleine
 
 ### 4. Eskalation
 
-![Eskalation: erst Playbook schärfen, dann eine Stufe höher – Haiku, Sonnet, Opus](docs/img/eskalation.svg)
+![Eskalation: erst Playbook schärfen, dann eine Stufe höher – Haiku, Sonnet, Opus](https://raw.githubusercontent.com/9fw2pq8sgb-art/claude-playbook-delegation/main/docs/img/eskalation.svg)
 
 1. Fehlschlag: zuerst das Playbook schärfen. Dasselbe Modell versucht es ein zweites Mal.
 2. Wieder ein Fehlschlag: eine Stufe höher, also Haiku → Sonnet → Opus selbst.
@@ -107,7 +107,7 @@ Die Zahl der Tokens bleibt ungefähr gleich. Was sinkt, ist der **Preis pro Toke
 
 **Beispielrechnung:** Eine Aufgabe braucht 1 Mio. Tokens Arbeit, davon 80 % Lesen. Opus behält 10 % selbst (planen, Playbooks schreiben, nachprüfen). Dazu kommen 3 Subagenten mit je 67.000 Tokens Startkosten.
 
-![Kostenvergleich: alles Opus 7,20 $, nur Sonnet 4,36 $, Mischung 2,06 $, nur Haiku 0,90 $](docs/img/ersparnis.svg)
+![Kostenvergleich: alles Opus 7,20 $, nur Sonnet 4,36 $, Mischung 2,06 $, nur Haiku 0,90 $](https://raw.githubusercontent.com/9fw2pq8sgb-art/claude-playbook-delegation/main/docs/img/ersparnis.svg)
 
 | Szenario | Kosten | Ersparnis |
 |---|---|---|
