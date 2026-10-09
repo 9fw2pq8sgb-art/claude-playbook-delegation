@@ -93,6 +93,42 @@ Fragt ein Agent nach oder rät er, war das Playbook zu dünn. An einem zu kleine
 2. Wieder ein Fehlschlag: eine Stufe höher, also Haiku → Sonnet → Opus selbst.
 3. Gute Playbooks werden als Vorlage gespeichert und beim nächsten Mal wiederverwendet.
 
+### 5. Wie viel spart das? (theoretisch)
+
+Die Zahl der Tokens bleibt ungefähr gleich. Was sinkt, ist der **Preis pro Token**. Die kleinen Modelle sind pro Token viel billiger als Opus:
+
+| Modell | Input $/1 Mio. | Output $/1 Mio. | im Vergleich zu Opus |
+|---|---|---|---|
+| Opus 5.5 | 4,00 | 20,00 | 100 % |
+| Sonnet 5.5 | 2,00 | 10,00 | **50 %**, also halber Preis |
+| Haiku 5.5 | 0,10 | 0,50 | **2,5 %**, also 40-mal billiger* |
+
+<sub>Anthropic-API-Preise, Stand 06.10.2026. *Haiku-Preis gilt bis 100.000 Tokens Prompt, darüber 0,50 / 2,50 $.</sub>
+
+**Beispielrechnung:** Eine Aufgabe braucht 1 Mio. Tokens Arbeit, davon 80 % Lesen. Opus behält 10 % selbst (planen, Playbooks schreiben, nachprüfen). Dazu kommen 3 Subagenten mit je 67.000 Tokens Startkosten.
+
+![Kostenvergleich: alles Opus 7,20 $, nur Sonnet 4,36 $, Mischung 2,06 $, nur Haiku 0,90 $](docs/img/ersparnis.svg)
+
+| Szenario | Kosten | Ersparnis |
+|---|---|---|
+| Alles Opus | 7,20 $ | – |
+| Delegiert, nur Sonnet | 4,36 $ | 39 % |
+| Delegiert, 1/3 Sonnet + 2/3 Haiku | 2,06 $ | 71 % |
+| Delegiert, nur Haiku | 0,90 $ | 87 % |
+
+Was man daraus lernt:
+
+- **Haiku bringt den großen Hebel.** Sonnet halbiert nur den Preis. Darum gilt im Zweifel: Haiku zuerst.
+- **Der Opus-Anteil ist die Untergrenze.** Bei „nur Haiku“ entfallen 0,72 $ der 0,90 $ auf die 10 % Planung durch Opus. Ein knappes, gutes Playbook spart also doppelt.
+- **Puffer gegen Mehrverbrauch:** Haiku ist 40-mal billiger. Selbst wenn es für dieselbe Arbeit doppelt so viele Tokens bräuchte, bliebe es weit unter Opus.
+
+**Was diese Rechnung nicht weiß:**
+- ob ein kleines Modell bei deiner Aufgabe mehr Tokens oder mehr Versuche braucht,
+- wie viel Prompt-Caching ohnehin schon spart,
+- wie die Nutzungslimits im Abo (Pro/Max) die Modelle gewichten. Die Rechnung nutzt API-Preise.
+
+Die Annahmen stehen in [`tools/ersparnis.py`](tools/ersparnis.py). Eigene Werte eintragen und mit `python3 tools/ersparnis.py` neu rechnen. Das Skript erzeugt auch die Grafik.
+
 ---
 
 ## Optional: immer aktiv
@@ -134,5 +170,6 @@ Der zweite Befehl entfernt das Plugin mit.
 plugins/playbook/.claude-plugin/plugin.json
 plugins/playbook/skills/delegieren/SKILL.md   # der Skill
 docs/anleitung.html                           # interaktive Anleitung (GitHub Pages)
-docs/img/*.svg                                # animierte Grafiken dieser README
+docs/img/*.svg                                # Grafiken dieser README
+tools/ersparnis.py                            # Kostenrechnung, erzeugt ersparnis.svg
 ```
