@@ -1,0 +1,49 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 800 460" width="100%" role="img">
+<style>
+text{font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.04em}
+.t{font-size:15px;font-weight:700;fill:#0A0A0A;text-anchor:middle}
+.w{fill:#FFFFFF}
+.s{font-size:13px;font-weight:700;fill:#6B7280}
+.n{font-size:13px;fill:#374151;text-anchor:middle;letter-spacing:0.02em}
+.hl{fill:none;stroke:#00C896;stroke-width:5;opacity:0}
+.dot{animation:dot 10s linear infinite;opacity:0}@keyframes dot{0%{transform:translate(400px,110px);opacity:0}1%{transform:translate(400px,110px);opacity:1}4%{transform:translate(400px,150px);opacity:1}11%{transform:translate(145px,150px);opacity:1}16%{transform:translate(145px,270px);opacity:1}27%{transform:translate(145px,270px);opacity:1}28%{transform:translate(145px,270px);opacity:0}30%{transform:translate(400px,110px);opacity:0}31%{transform:translate(400px,110px);opacity:1}40%{transform:translate(400px,270px);opacity:1}56%{transform:translate(400px,270px);opacity:1}58%{transform:translate(400px,270px);opacity:0}60%{transform:translate(400px,110px);opacity:0}61%{transform:translate(400px,110px);opacity:1}64%{transform:translate(400px,150px);opacity:1}71%{transform:translate(655px,150px);opacity:1}76%{transform:translate(655px,270px);opacity:1}87%{transform:translate(655px,270px);opacity:1}88%{transform:translate(655px,270px);opacity:0}100%{transform:translate(400px,110px);opacity:0}}
+.r0{animation:r0 10s linear infinite}@keyframes r0{0%,15%{opacity:0}16%,28%{opacity:1}29%,100%{opacity:0}}
+.r1{animation:r1 10s linear infinite}@keyframes r1{0%,39%{opacity:0}40%,58%{opacity:1}59%,100%{opacity:0}}
+.r2{animation:r2 10s linear infinite}@keyframes r2{0%,75%{opacity:0}76%,88%{opacity:1}89%,100%{opacity:0}}
+@media (prefers-reduced-motion: reduce){.dot{animation:none!important;opacity:0}.hl{animation:none!important;opacity:1}}
+</style>
+<rect width="100%" height="100%" fill="#FFFFFF"/>
+<defs><marker id="pfeil" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 Z" fill="#6B7280"/></marker><marker id="pfeil2" markerWidth="10" markerHeight="8" refX="9" refY="4" orient="auto" markerUnits="userSpaceOnUse"><path d="M0,0 L10,4 L0,8 Z" fill="#374151"/></marker></defs>
+<rect x="120" y="30" width="560" height="80" rx="0" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2"/>
+<text class="t" x="400" y="64" style="font-size:16px">MUSS DER AGENT ETWAS ENTSCHEIDEN,</text><text class="t" x="400" y="90" style="font-size:16px">DAS NICHT IM PLAYBOOK STEHT?</text>
+<path d="M400,110 L400,150 L145,150 L145,268" fill="none" stroke="#6B7280" stroke-width="2" marker-end="url(#pfeil)"/>
+<path d="M400,110 L400,268" fill="none" stroke="#6B7280" stroke-width="2" marker-end="url(#pfeil)"/>
+<path d="M400,110 L400,150 L655,150 L655,268" fill="none" stroke="#6B7280" stroke-width="2" marker-end="url(#pfeil)"/>
+<rect x="30" y="270" width="230" height="130" rx="0" fill="#FFFFFF" stroke="#0A0A0A" stroke-width="2"/>
+<rect class="hl r0" x="32" y="272" width="226" height="126" rx="0"/>
+<text class="t" x="145" y="302" style="font-size:17px">HAIKU 5.5</text>
+<text x="145" y="332" style="font-size:13px;fill:#0A0A0A;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">suchen, lesen, extrahieren</text>
+<text x="145" y="354" style="font-size:13px;fill:#0A0A0A;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">umbenennen, formatieren</text>
+<text x="145" y="376" style="font-size:13px;fill:#0A0A0A;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">Tests und Builds laufen lassen</text>
+<rect x="285" y="270" width="230" height="130" rx="0" fill="#0D1F2D" stroke="#0D1F2D" stroke-width="2"/>
+<rect class="hl r1" x="287" y="272" width="226" height="126" rx="0"/>
+<text class="t w" x="400" y="302" style="font-size:17px">SONNET 5.5</text>
+<text x="400" y="332" style="font-size:13px;fill:#FFFFFF;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">Code über mehrere Dateien</text>
+<text x="400" y="354" style="font-size:13px;fill:#FFFFFF;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">debuggen, Reviews</text>
+<text x="400" y="376" style="font-size:13px;fill:#FFFFFF;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">Recherche mit Abwägung</text>
+<rect x="540" y="270" width="230" height="130" rx="0" fill="#0A0A0A" stroke="#0A0A0A" stroke-width="2"/>
+<rect class="hl r2" x="542" y="272" width="226" height="126" rx="0"/>
+<text class="t w" x="655" y="302" style="font-size:17px">OPUS SELBST</text>
+<text x="655" y="332" style="font-size:13px;fill:#FFFFFF;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">Architektur-Entscheidungen</text>
+<text x="655" y="354" style="font-size:13px;fill:#FFFFFF;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">Mehrdeutiges</text>
+<text x="655" y="376" style="font-size:13px;fill:#FFFFFF;text-anchor:middle;font-family:Futura, 'Century Gothic', 'Avenir Next', Arial, sans-serif;letter-spacing:0.02em">nicht delegieren</text>
+<rect x="113.0" y="198.0" width="64" height="24" rx="0" fill="#FFFFFF"/>
+<text class="s" x="145" y="215" text-anchor="middle" style="fill:#0A0A0A">NEIN</text>
+<rect x="378.0" y="198.0" width="44" height="24" rx="0" fill="#FFFFFF"/>
+<text class="s" x="400" y="215" text-anchor="middle" style="fill:#0A0A0A">JA</text>
+<rect x="570.0" y="186.0" width="170" height="44" rx="0" fill="#FFFFFF"/>
+<text class="s" x="655" y="202" text-anchor="middle" style="fill:#0A0A0A">JA, ARCHITEKTUR /</text>
+<text class="s" x="655" y="222" text-anchor="middle" style="fill:#0A0A0A">MEHRDEUTIG</text>
+<text class="s" x="400" y="436" text-anchor="middle">IM ZWEIFEL HAIKU ZUERST</text>
+<circle class="dot" cx="0" cy="0" r="9" fill="#00C896" stroke="#0A0A0A" stroke-width="2"/>
+</svg>

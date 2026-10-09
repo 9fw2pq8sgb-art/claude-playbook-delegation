@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="de">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Delegieren – Anleitung</title>
+<style>
+:root{
+  --ink:#0A0A0A; --accent:#00C896; --accent-hover:#00A87E; --navy:#0D1F2D;
+  --n1:#111827; --body:#374151; --muted:#6B7280; --line:#D1D5DB; --bg:#FFFFFF;
+  --font:Futura,"Century Gothic","Avenir Next",sans-serif;
+}
+*{box-sizing:border-box;border-radius:0}
+html{scroll-behavior:smooth}
+body{margin:0;background:var(--bg);color:var(--body);font-family:var(--font);font-size:1rem;line-height:1.6;overflow-x:hidden}
+h1,h2,h3,.label,.btn,.tag{text-transform:uppercase;letter-spacing:.04em;font-family:var(--font)}
+h1{font-size:clamp(1.9rem,7vw,3.6rem);line-height:1.1;margin:0 0 1.25rem;color:var(--ink);font-weight:700}
+h2{font-size:clamp(1.3rem,4.5vw,2rem);line-height:1.2;margin:0 0 1rem;color:var(--ink);font-weight:700}
+h3{font-size:.95rem;margin:0 0 .4rem;color:var(--ink);font-weight:700}
+p{margin:0 0 1rem;max-width:62ch}
+.wrap{max-width:60rem;margin:0 auto;padding:0 16px}
+section{padding:4.5rem 0;border-top:1px solid var(--line)}
+section:first-of-type{border-top:0}
+.label{font-size:.75rem;color:var(--muted);margin:0 0 .75rem;display:block}
+.dark{background:var(--navy);color:var(--line);border-top:0}
+.dark h2,.dark h3{color:#FFFFFF}
+.dark .label{color:var(--line)}
+.dark p{color:var(--line)}
+.lead{font-size:1.15rem;color:var(--n1)}
+code,pre{font-family:ui-monospace,Menlo,Consolas,monospace}
+.btn{font-size:.8rem;font-weight:700;background:var(--ink);color:#FFFFFF;border:2px solid var(--ink);padding:.7rem 1.1rem;cursor:pointer;min-height:44px}
+.btn:hover{background:var(--accent-hover);border-color:var(--accent-hover);color:var(--ink)}
+.btn.ghost{background:#FFFFFF;color:var(--ink)}
+.btn.ghost:hover{background:var(--accent-hover);color:var(--ink)}
+.btn:disabled{opacity:.4;cursor:default}
+.btn:disabled:hover{background:var(--ink);border-color:var(--ink);color:#FFFFFF}
+.btn.ghost:disabled:hover{background:#FFFFFF;color:var(--ink)}
+.btn[aria-pressed="true"]{background:var(--navy);border-color:var(--navy);color:#FFFFFF}
+:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.dark :focus-visible{outline-color:#FFFFFF}
+.row{display:flex;flex-wrap:wrap;gap:.6rem}
+
+/* Modell-Kennzeichnung: Form statt Farbe */
+.m{display:block;padding:.7rem .5rem;text-align:center;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border:2px solid var(--ink)}
+.m.opus{background:var(--ink);color:#FFFFFF}
+.m.sonnet{background:var(--navy);color:#FFFFFF;border-color:var(--navy)}
+.m.haiku{background:#FFFFFF;color:var(--ink)}
+
+/* Hero-Animation */
+.hero{padding:4rem 0 4.5rem}
+.hero-anim{margin-top:2.5rem;max-width:34rem}
+.hero-anim .opus-row{display:flex;justify-content:center}
+.hero-anim .opus-row .m{width:60%;padding:1.2rem .5rem;font-size:.9rem}
+.hero-anim .cards{display:grid;grid-template-columns:repeat(3,1fr);gap:8px;height:84px;margin:0}
+.hero-anim .cards span{display:block}
+.pb{align-self:center;justify-self:center;width:76%;padding:.35rem .2rem;border:2px solid var(--ink);background:#FFFFFF;color:var(--ink);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;text-align:center;opacity:0;animation:fly 6s ease-in-out infinite}
+.pb:nth-child(2){animation-delay:.5s}.pb:nth-child(3){animation-delay:1s}
+@keyframes fly{
+  0%{transform:translateY(-40px);opacity:0}
+  10%{opacity:1}
+  50%{transform:translateY(0);opacity:1}
+  80%{transform:translateY(40px);opacity:1}
+  92%,100%{transform:translateY(40px);opacity:0}
+}
+.workers{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.workers .m{padding:.8rem .2rem;font-size:.68rem;animation:work 6s ease-in-out infinite}
+.workers .m:nth-child(2){animation-delay:.5s}.workers .m:nth-child(3){animation-delay:1s}
+@keyframes work{0%,70%{border-width:2px}80%,95%{border-width:5px}100%{border-width:2px}}
+
+/* Problem */
+.cmp{display:grid;gap:2rem;margin-top:2rem}
+@media(min-width:48rem){.cmp{grid-template-columns:1fr 1fr}}
+.bars{margin:1rem 0 .5rem}
+.bar{height:22px;display:flex;margin-bottom:.4rem;width:0;transition:width 1.2s ease}
+.bar i{display:block;height:100%}
+.bar .big{background:#FFFFFF}
+.bar .small{background:#FFFFFF;width:25%}
+.bar .out{border:2px solid #FFFFFF;flex:1}
+.in .bar{width:100%}
+.bar.short{width:0}
+.in .bar.short{width:100%}
+.note{font-size:.8rem;color:var(--line)}
+.legend{font-size:.8rem;color:var(--line);margin-top:.5rem}
+.noscript-show .bar{width:100%}
+
+/* Ablauf */
+.flow{list-style:none;margin:2rem 0 0;padding:0;counter-reset:s;max-width:36rem}
+.flow li{position:relative;padding:.9rem 1rem .9rem 3.4rem;border:2px solid var(--line);background:#FFFFFF;color:var(--muted);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:.85rem;margin-bottom:1.4rem;transition:background .35s,color .35s,border-color .35s}
+.flow li::before{counter-increment:s;content:counter(s);position:absolute;left:1rem;top:50%;transform:translateY(-50%);font-size:.9rem}
+.flow li::after{content:"";position:absolute;left:1.5rem;top:100%;height:1.4rem;border-left:2px solid var(--line)}
+.flow li:last-child::after{display:none}
+.flow li.done{border-color:var(--ink);color:var(--ink)}
+.flow li.done::after{border-left-color:var(--ink)}
+.flow li.active{background:var(--navy);border-color:var(--navy);color:#FFFFFF}
+.flow li.final.active{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.flow li small{display:block;font-weight:400;text-transform:none;letter-spacing:0;font-size:.8rem;margin-top:.15rem}
+.flow li.fail{background:#FFFFFF;border:2px dashed var(--body);color:var(--body);margin-left:1.4rem;margin-top:-.4rem}
+.flow li.fail::before{content:"";}
+.flow li.fail{padding-left:1rem}
+.flow li.fail::after{border-left:2px dashed var(--body);left:-1.4rem;top:50%;height:0;width:1.4rem;border-left:0;border-top:2px dashed var(--body)}
+.flow li.fail.active{background:#FFFFFF;border:4px dashed var(--ink);color:var(--ink)}
+.caption{min-height:5.5rem;border-left:4px solid var(--ink);padding:.3rem 0 .3rem 1rem;margin:1.5rem 0;max-width:36rem;color:var(--n1)}
+.ctrl{max-width:36rem}
+
+/* Modellwahl */
+.q{border:2px solid var(--ink);padding:1.1rem;font-weight:700;color:var(--ink);max-width:36rem;margin:1.5rem 0 1rem}
+.result{max-width:36rem;margin-top:1.5rem;border-top:4px solid var(--ink);padding-top:1rem;animation:rise .35s ease}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+.result .m{display:inline-block;padding:.5rem 1rem;margin-bottom:.8rem}
+.result ul{margin:.3rem 0 .8rem;padding-left:1.1rem}
+.hint{font-size:.9rem;color:var(--muted)}
+
+/* Anatomie */
+.cards7{display:grid;gap:1rem;margin-top:2rem}
+@media(min-width:48rem){.cards7{grid-template-columns:repeat(2,1fr)}}
+.card{border:2px solid var(--ink);padding:1.1rem;background:#FFFFFF}
+.card .no{font-size:.7rem;color:var(--muted);letter-spacing:.04em}
+.card p{margin:0 0 .6rem;font-size:.95rem}
+.card .ex{margin:0;padding:.55rem .7rem;background:var(--navy);color:#FFFFFF;font-size:.8rem;white-space:pre-wrap;overflow-wrap:anywhere}
+.js .card{opacity:0;transform:translateY(18px);transition:opacity .5s ease,transform .5s ease}
+.js .card.in{opacity:1;transform:none}
+
+/* Treppe */
+.stairs{display:flex;align-items:flex-end;gap:6px;margin:2rem 0 1rem;max-width:36rem}
+.stair{flex:1;border:2px solid var(--line);background:#FFFFFF;color:var(--muted);padding:.6rem .4rem;text-align:center;font-size:.75rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;display:flex;flex-direction:column;justify-content:space-between;transition:background .35s,color .35s,border-color .35s}
+.stair:nth-child(1){height:90px}.stair:nth-child(2){height:140px}.stair:nth-child(3){height:190px}
+.stair.on{border-color:var(--ink);color:var(--ink)}
+.stair.on.cur{background:var(--navy);border-color:var(--navy);color:#FFFFFF}
+.stair.on.cur.ok{background:var(--accent);border-color:var(--accent);color:var(--ink)}
+.stair .tg{font-size:.65rem;min-height:1.2em}
+.log{max-width:36rem;margin:1rem 0 0;padding:0;list-style:none;font-size:.9rem}
+.log li{padding:.35rem .6rem;border-left:4px solid var(--line);color:var(--muted)}
+.log li.cur{border-left-color:var(--ink);color:var(--ink);font-weight:700}
+.rule{max-width:36rem;margin-top:1.5rem;padding:1rem;border:2px dashed var(--body);color:var(--n1);font-weight:700;text-transform:uppercase;letter-spacing:.04em;font-size:.85rem}
+
+/* Listen */
+.two{display:grid;gap:2rem;margin-top:2rem}
+@media(min-width:48rem){.two{grid-template-columns:1fr 1fr}}
+.two ul{list-style:none;margin:0;padding:0}
+.two li{padding:.6rem 0 .6rem 1.6rem;border-top:1px solid var(--line);position:relative}
+.two .yes li::before{content:"";position:absolute;left:0;top:1.05rem;width:.8rem;height:.8rem;background:var(--accent)}
+.two .no li::before{content:"";position:absolute;left:0;top:1.35rem;width:.8rem;height:2px;background:var(--body)}
+
+/* Installation */
+.step{display:grid;gap:.6rem;margin-top:1.8rem;max-width:44rem}
+.step .nr{font-size:.75rem;color:var(--muted)}
+.codebox{display:flex;flex-wrap:wrap;align-items:stretch;gap:0;border:2px solid var(--ink)}
+.codebox pre{margin:0;padding:.8rem 1rem;flex:1 1 14rem;min-width:0;background:var(--navy);color:#FFFFFF;font-size:.85rem;white-space:pre-wrap;word-break:break-all}
+.codebox .btn{border:0;border-left:2px solid var(--ink);flex:0 0 auto;min-width:7.5rem}
+@media(max-width:30rem){.codebox .btn{border-left:0;border-top:2px solid var(--ink);flex:1 1 100%}}
+.btn.copied{background:var(--accent);color:var(--ink);border-color:var(--ink)}
+.box{border-left:4px solid var(--ink);padding:.3rem 0 .3rem 1rem;margin-top:2rem;max-width:44rem}
+footer{background:var(--ink);color:var(--line);padding:2.5rem 0;font-size:.8rem;text-transform:uppercase;letter-spacing:.04em}
+
+@media (prefers-reduced-motion: reduce){
+  *,*::before,*::after{animation:none!important;transition:none!important;scroll-behavior:auto!important}
+  .pb{opacity:1;transform:none}
+  .js .card{opacity:1;transform:none}
+  .bar{width:100%}
+}
+</style>
+</head>
+<body>
+<script>document.documentElement.classList.add('js');</script>
+
+<!-- a HERO -->
+<header class="hero">
+  <div class="wrap">
+    <span class="label">Claude Code · Skill „delegieren“</span>
+    <h1>Opus plant. Sonnet und Haiku arbeiten.</h1>
+    <p class="lead">Der Skill lässt das große Modell die Aufgabe zerlegen und für jeden Teil ein präzises Playbook schreiben. Die Ausführung übernehmen günstigere Modelle. Danach prüft das große Modell das Ergebnis gegen ein messbares Gate.</p>
+    <div class="hero-anim" role="img" aria-label="Opus übergibt drei Playbooks an Haiku und Sonnet">
+      <div class="opus-row"><span class="m opus">Opus</span></div>
+      <div class="cards" aria-hidden="true"><span class="pb">Playbook</span><span class="pb">Playbook</span><span class="pb">Playbook</span></div>
+      <div class="workers" aria-hidden="true">
+        <span class="m haiku">Haiku 5.5</span><span class="m sonnet">Sonnet 5.5</span><span class="m haiku">Haiku 5.5</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<!-- b PROBLEM UND IDEE -->
+<section class="dark" id="idee" data-reveal>
+  <div class="wrap">
+    <span class="label">01 · Das Problem und die Idee</span>
+    <h2>Das große Modell macht sonst alles selbst</h2>
+    <p>Suchen, Lesen, Umformen, Tests laufen lassen: Ohne Delegation übernimmt das große Modell auch diese Routinearbeit. Das verbraucht viele Tokens.</p>
+    <div class="cmp">
+      <div>
+        <h3>Ohne Delegation</h3>
+        <p>Ein Modell plant und führt alles selbst aus.</p>
+        <div class="bars" aria-hidden="true">
+          <div class="bar"><i class="big" style="width:100%"></i></div>
+        </div>
+        <div class="note">Token-Last bei Opus: Planung und Ausführung</div>
+      </div>
+      <div>
+        <h3>Mit Delegation</h3>
+        <p>Die Intelligenz steckt im Playbook. Günstige Modelle führen aus.</p>
+        <div class="bars" aria-hidden="true">
+          <div class="bar short"><i class="small"></i><i class="out"></i></div>
+        </div>
+        <div class="note">Opus: Planung und Prüfung (gefüllt) · Haiku/Sonnet: Ausführung (Umriss)</div>
+      </div>
+    </div>
+    <p class="legend">Schematische Darstellung des Prinzips: Der Anteil bei Opus sinkt deutlich. Keine Messwerte.</p>
+    <p>Jeder Subagent startet mit leerem Kontext. Das kostet Startaufwand. Darum werden Ein-Zeilen-Edits nicht delegiert, sondern nur Aufgaben, bei denen das Playbook kürzer ist als die Arbeit.</p>
+  </div>
+</section>
+
+<!-- c ABLAUF -->
+<section id="ablauf">
+  <div class="wrap">
+    <span class="label">02 · Der Ablauf</span>
+    <h2>Vom Auftrag zum geprüften Ergebnis</h2>
+    <p>Sieben Schritte. Besteht das Gate nicht, geht es über den gestrichelten Pfad zurück.</p>
+    <div class="ctrl row" role="group" aria-label="Steuerung Ablauf">
+      <button class="btn" id="fStart" type="button">Ablauf starten</button>
+      <button class="btn ghost" id="fBack" type="button">Zurück</button>
+      <button class="btn ghost" id="fNext" type="button">Weiter</button>
+      <button class="btn ghost" id="fAgain" type="button">Nochmal</button>
+      <button class="btn ghost" id="fFail" type="button">Fail-Pfad zeigen</button>
+    </div>
+    <ol class="flow" id="flow">
+      <li data-i="0">Auftrag</li>
+      <li data-i="1">Opus zerlegt</li>
+      <li data-i="2">Playbooks</li>
+      <li data-i="3">Haiku / Sonnet arbeiten parallel</li>
+      <li data-i="4">Agent führt Gate aus</li>
+      <li data-i="F" class="fail">Gate nicht bestanden: Playbook schärfen, zurück zu Schritt 3</li>
+      <li data-i="5">Opus prüft selbst nach</li>
+      <li data-i="6" class="final">Fertig</li>
+    </ol>
+    <div class="caption" id="fCap" aria-live="polite">ABLAUF STARTEN wählen oder mit WEITER schrittweise durchgehen.</div>
+  </div>
+</section>
+
+<!-- d MODELLWAHL -->
+<section id="modell">
+  <div class="wrap">
+    <span class="label">03 · Modellwahl</span>
+    <h2>Eine Frage entscheidet</h2>
+    <div class="q">Muss der Agent etwas entscheiden, das nicht im Playbook steht?</div>
+    <div class="row" role="group" aria-label="Antwort">
+      <button class="btn ghost" type="button" data-a="nein" aria-pressed="false">Nein</button>
+      <button class="btn ghost" type="button" data-a="ja" aria-pressed="false">Ja</button>
+      <button class="btn ghost" type="button" data-a="arch" aria-pressed="false">Ja, Architektur oder mehrdeutig</button>
+    </div>
+    <div id="res" aria-live="polite"><p class="hint" style="margin-top:1.5rem">Antwort wählen, um das Modell zu sehen.</p></div>
+    <p class="hint" style="margin-top:1.5rem">Im Zweifel Haiku zuerst. Ein Fehlschlag am Gate ist billiger als Sonnet auf Vorrat. Das Modell wird bei jedem Agent-Aufruf explizit gesetzt.</p>
+  </div>
+</section>
+
+<!-- e ANATOMIE -->
+<section id="anatomie">
+  <div class="wrap">
+    <span class="label">04 · Anatomie eines Playbooks</span>
+    <h2>Sieben Pflichtfelder</h2>
+    <p>Jeder Agent-Auftrag hat genau diese Teile. Beispiel: alle Stellen mit der alten API <code>getUser()</code> auf <code>fetchUser()</code> umstellen.</p>
+    <div class="cards7">
+      <div class="card" data-reveal><span class="no">01</span><h3>Ziel</h3><p>Ein Satz. Was am Ende vorliegt.</p><pre class="ex">Alle Aufrufe von getUser() sind
+durch fetchUser() ersetzt.</pre></div>
+      <div class="card" data-reveal><span class="no">02</span><h3>Kontext</h3><p>Absolute Pfade zum Lesen und Fakten, die der Agent nicht selbst herausfinden soll. Keine Inhalte hineinkopieren.</p><pre class="ex">Repo-Pfad (absolut) · alte und
+neue Signatur</pre></div>
+      <div class="card" data-reveal><span class="no">03</span><h3>Schritte</h3><p>Nummeriert, eine Handlung pro Schritt. Entscheidungen vorweg: „nimm X, nicht Y, weil …“.</p><pre class="ex">1. Stellen mit getUser() suchen
+2. Je Stelle auf fetchUser() umstellen</pre></div>
+      <div class="card" data-reveal><span class="no">04</span><h3>Verbote</h3><p>Was der Agent nicht anfasst.</p><pre class="ex">Kein git push, kein Löschen,
+keine Nachrichten senden</pre></div>
+      <div class="card" data-reveal><span class="no">05</span><h3>Gate</h3><p>Der Check, den der Agent selbst ausführt, bevor er „fertig“ meldet. Möglichst mit Gegenprobe: bekannten Fehler einspeisen und prüfen, ob der Check ihn findet.</p><pre class="ex">Test-Kommando des Projekts</pre></div>
+      <div class="card" data-reveal><span class="no">06</span><h3>Stopp</h3><p>Was bei Abweichung gilt.</p><pre class="ex">Passt etwas nicht zum Playbook:
+abbrechen und melden, nicht raten.</pre></div>
+      <div class="card" data-reveal><span class="no">07</span><h3>Rückgabe</h3><p>Festes, kurzes Format. Keine Prosa.</p><pre class="ex">STATUS: pass | fail | blockiert
+DATEIEN · GATE · OFFEN</pre></div>
+    </div>
+    <p style="margin-top:1.5rem">Ein Playbook ist gut, wenn der Agent ohne Rückfrage fertig wird und das Gate grün ist. Fragt der Agent nach oder rät er, war das Playbook zu dünn, nicht das Modell zu klein.</p>
+  </div>
+</section>
+
+<!-- f PRÜFEN UND ESKALIEREN -->
+<section id="eskalation">
+  <div class="wrap">
+    <span class="label">05 · Prüfen und eskalieren</span>
+    <h2>Fehlschlag: erst schärfen, dann hochstufen</h2>
+    <p>Der Prüfer ist nie der Arbeiter. Meldet ein Agent „pass“, lässt Opus das Gate selbst erneut laufen oder nimmt eine Stichprobe.</p>
+    <div class="stairs" id="stairs" role="img" aria-label="Treppe Haiku, Sonnet, Opus selbst">
+      <div class="stair"><span>Haiku 5.5</span><span class="tg"></span></div>
+      <div class="stair"><span>Sonnet 5.5</span><span class="tg"></span></div>
+      <div class="stair"><span>Opus selbst</span><span class="tg"></span></div>
+    </div>
+    <ol class="log" id="log"></ol>
+    <div class="rule">Erst Playbook schärfen, dann Stufe hoch.</div>
+    <p style="margin-top:1.5rem">Der Skill merkt sich, welcher Aufgabentyp welches Modell brauchte. Das ist die Grundlage für die nächste Modellwahl.</p>
+  </div>
+</section>
+
+<!-- g KANN / TUT NICHT -->
+<section id="grenzen">
+  <div class="wrap">
+    <span class="label">06 · Umfang</span>
+    <h2>Was der Skill kann und was er nicht tut</h2>
+    <div class="two">
+      <div class="yes">
+        <h3>Kann</h3>
+        <ul>
+          <li>Entscheiden, ob delegiert oder selbst gemacht wird</li>
+          <li>Das Modell wählen: Haiku 5.5, Sonnet 5.5 oder Opus selbst</li>
+          <li>Playbooks in Pflichtform schreiben</li>
+          <li>Unabhängige Teile parallel starten</li>
+          <li>Ergebnisse unabhängig nachprüfen</li>
+          <li>Bei Fehlschlag das Playbook schärfen und eskalieren</li>
+          <li>Bewährte Playbooks als Vorlage speichern</li>
+        </ul>
+      </div>
+      <div class="no">
+        <h3>Tut nicht</h3>
+        <ul>
+          <li>Aufgaben mit einem einzigen Tool-Aufruf oder Ein-Zeilen-Edits delegieren</li>
+          <li>Rückfragen an den Nutzer sowie Architektur- und Grundsatzentscheidungen abgeben</li>
+          <li>Opus als Subagent einsetzen</li>
+          <li>Den Agenten raten lassen: bei Abweichung gilt Abbruch und Meldung</li>
+          <li>Ein gemeldetes „pass“ ungeprüft übernehmen</li>
+          <li>Fehlerklassen ohne Gate als geprüft ausgeben: Sie werden als nicht geprüft gemeldet</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- h INSTALLATION -->
+<section id="installation">
+  <div class="wrap">
+    <span class="label">07 · Installation</span>
+    <h2>In drei Schritten einrichten</h2>
+    <p>Voraussetzung: Claude Code <strong>2.1.293 oder neuer</strong>. Version prüfen mit <code>claude --version</code>. Bei älteren Versionen ist Haiku 5.5 nicht verfügbar.</p>
+    <div class="codebox" style="max-width:44rem"><pre id="c0">claude --version</pre><button class="btn ghost" type="button" data-copy="c0">Kopieren</button></div>
+
+    <div class="step">
+      <span class="nr">SCHRITT 1</span>
+      <h3>Marketplace hinzufügen</h3>
+      <div class="codebox"><pre id="c1">claude plugin marketplace add 9fw2pq8sgb-art/claude-playbook-delegation</pre><button class="btn ghost" type="button" data-copy="c1">Kopieren</button></div>
+    </div>
+    <div class="step">
+      <span class="nr">SCHRITT 2</span>
+      <h3>Plugin installieren</h3>
+      <div class="codebox"><pre id="c2">claude plugin install playbook@playbook-delegation</pre><button class="btn ghost" type="button" data-copy="c2">Kopieren</button></div>
+    </div>
+    <div class="step">
+      <span class="nr">SCHRITT 3</span>
+      <h3>Claude Code neu starten und aufrufen</h3>
+      <p style="margin:0">Nach dem Neustart im Chat aufrufen. Alternativ genügt der Satz „delegier das“.</p>
+      <div class="codebox"><pre id="c3">/playbook:delegieren</pre><button class="btn ghost" type="button" data-copy="c3">Kopieren</button></div>
+    </div>
+    <div class="box"><p style="margin:0">Liegt das Repository privat auf GitHub, ist für Schritt 1 ein Zugriff auf dieses Repository nötig. Ohne Berechtigung schlägt das Hinzufügen des Marketplace fehl.</p></div>
+  </div>
+</section>
+
+<footer><div class="wrap">github.com/9fw2pq8sgb-art/claude-playbook-delegation</div></footer>
+
+<script>
+(function(){
+  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  var $ = function(s,r){return (r||document).querySelector(s)};
+  var $$ = function(s,r){return Array.prototype.slice.call((r||document).querySelectorAll(s))};
+
+  /* Einblenden beim Scrollen */
+  var revealEls = $$('[data-reveal]');
+  function showAll(){ revealEls.forEach(function(e){e.classList.add('in')}); }
+  if(!('IntersectionObserver' in window) || reduce){ showAll(); }
+  else {
+    var io = new IntersectionObserver(function(es){
+      es.forEach(function(en){
+        if(en.isIntersecting){
+          var el = en.target;
+          var d = 0;
+          if(el.classList.contains('card')){ d = $$('.card').indexOf(el) % 2 * 120; }
+          setTimeout(function(){ el.classList.add('in'); }, d);
+          io.unobserve(el);
+        }
+      });
+    },{threshold:.15});
+    revealEls.forEach(function(e){io.observe(e)});
+  }
+
+  /* Ablauf */
+  var caps = {
+    0:'AUFTRAG. Eine Aufgabe kommt herein. Opus entscheidet zuerst: selbst machen oder delegieren. Delegiert wird, wenn das Playbook kürzer ist als die Arbeit.',
+    1:'OPUS ZERLEGT. Die Aufgabe wird in Teile geteilt. Pro Teil gilt die eine Frage: Muss der Agent etwas entscheiden, das nicht im Playbook steht?',
+    2:'PLAYBOOKS. Für jeden Teil entsteht ein Playbook in Pflichtform von ZIEL bis RÜCKGABE.',
+    3:'HAIKU / SONNET ARBEITEN PARALLEL. Unabhängige Teile starten gleichzeitig, mehrere Agent-Aufrufe in einer Nachricht. Das Modell steht bei jedem Aufruf explizit fest.',
+    4:'AGENT FÜHRT GATE AUS. Jeder Agent führt sein Gate selbst aus und meldet STATUS, DATEIEN, GATE und OFFEN im festen Format.',
+    F:'GATE NICHT BESTANDEN. Zuerst das Playbook schärfen: fehlender Kontext, unklare Entscheidung. Gleiches Modell, zweiter Versuch. Dann zurück zu den Playbooks.',
+    5:'OPUS PRÜFT SELBST NACH. Gate erneut laufen lassen oder Stichprobe nehmen. Ein gemeldetes „pass“ wird nicht blind übernommen.',
+    6:'FERTIG. Erst wenn der eigene Check grün ist, ist die Aufgabe erledigt. Gemeldet wird, was geprüft wurde und was nicht.'
+  };
+  var normal = [0,1,2,3,4,5,6];
+  var failSeq = [0,1,2,3,4,'F',2,3,4,5,6];
+  var seq = normal, pos = -1, timer = null;
+  var nodes = {};
+  $$('#flow li').forEach(function(li){ nodes[li.getAttribute('data-i')] = li; });
+  var cap = $('#fCap');
+  function render(){
+    Object.keys(nodes).forEach(function(k){ nodes[k].className = nodes[k].className.replace(/\b(done|active)\b/g,'').trim(); });
+    if(pos < 0){ cap.textContent = 'ABLAUF STARTEN wählen oder mit WEITER schrittweise durchgehen.'; }
+    else {
+      var seen = {};
+      for(var i=0;i<pos;i++) seen[seq[i]] = true;
+      Object.keys(seen).forEach(function(k){ nodes[k].classList.add('done'); });
+      var cur = seq[pos];
+      nodes[cur].classList.remove('done');
+      nodes[cur].classList.add('active');
+      cap.textContent = caps[cur];
+    }
+    $('#fBack').disabled = pos <= 0;
+    $('#fNext').disabled = pos >= seq.length-1;
+  }
+  function stop(){ if(timer){ clearInterval(timer); timer = null; } }
+  function play(s){
+    stop(); seq = s; pos = 0; render();
+    if(reduce) return;
+    timer = setInterval(function(){
+      if(pos < seq.length-1){ pos++; render(); } else stop();
+    }, 1500);
+  }
+  $('#fStart').addEventListener('click', function(){ play(normal); });
+  $('#fAgain').addEventListener('click', function(){ play(normal); });
+  $('#fFail').addEventListener('click', function(){ play(failSeq); });
+  $('#fNext').addEventListener('click', function(){ stop(); if(pos < seq.length-1){ pos++; render(); } });
+  $('#fBack').addEventListener('click', function(){ stop(); if(pos > 0){ pos--; render(); } });
+  if(reduce){ seq = normal; pos = normal.length-1; }
+  render();
+
+  /* Modellwahl */
+  var answers = {
+    nein:{cls:'haiku', name:'Haiku 5.5', val:'model: "haiku"', title:'Der Agent braucht nichts zu entscheiden', tasks:['suchen, lesen, extrahieren','zusammenfassen','umbenennen, formatieren','Daten umformen','Tests und Builds laufen lassen']},
+    ja:{cls:'sonnet', name:'Sonnet 5.5', val:'model: "sonnet"', title:'Der Agent muss eigenes Urteil bilden', tasks:['Code schreiben über mehrere Dateien','debuggen','Recherche mit Abwägung','Reviews','Texte']},
+    arch:{cls:'opus', name:'Opus selbst', val:'nicht delegieren', title:'Architektur oder mehrdeutig', tasks:['Architektur- und Grundsatzentscheidungen','Mehrdeutiges','Rückfragen an den Nutzer','Aufgaben mit einem einzigen Tool-Aufruf']}
+  };
+  var res = $('#res');
+  $$('[data-a]').forEach(function(b){
+    b.addEventListener('click', function(){
+      $$('[data-a]').forEach(function(x){ x.setAttribute('aria-pressed','false'); });
+      b.setAttribute('aria-pressed','true');
+      var a = answers[b.getAttribute('data-a')];
+      res.innerHTML = '';
+      var d = document.createElement('div'); d.className = 'result';
+      var m = document.createElement('span'); m.className = 'm ' + a.cls; m.textContent = a.name;
+      var h = document.createElement('h3'); h.textContent = a.title;
+      var p = document.createElement('p'); p.style.margin = '0 0 .4rem'; p.textContent = a.val;
+      var ul = document.createElement('ul');
+      a.tasks.forEach(function(t){ var li = document.createElement('li'); li.textContent = t; ul.appendChild(li); });
+      var lab = document.createElement('span'); lab.className = 'label'; lab.textContent = 'Typische Arbeit';
+      d.appendChild(m); d.appendChild(h); d.appendChild(p); d.appendChild(lab); d.appendChild(ul);
+      res.appendChild(d);
+    });
+  });
+
+  /* Treppe */
+  var frames = [
+    {s:0, t:'Haiku 5.5 arbeitet. Das Gate meldet fail.', tag:'FAIL'},
+    {s:0, t:'Zuerst das Playbook schärfen. Gleiches Modell, zweiter Versuch.', tag:'GESCHÄRFT'},
+    {s:0, t:'Zweiter Versuch mit Haiku 5.5. Wieder fail.', tag:'FAIL'},
+    {s:1, t:'Eine Stufe höher: Sonnet 5.5 mit dem geschärften Playbook. Wieder fail.', tag:'FAIL'},
+    {s:2, t:'Eine Stufe höher: Opus übernimmt selbst. Gate grün, eigene Prüfung grün.', tag:'PASS', ok:true}
+  ];
+  var stairs = $$('#stairs .stair'), log = $('#log'), fi = 0, lt = null, visible = false;
+  frames.forEach(function(f){ var li = document.createElement('li'); li.textContent = f.t; log.appendChild(li); });
+  var lis = $$('#log li');
+  function drawStairs(){
+    var f = frames[fi];
+    stairs.forEach(function(st,i){
+      st.className = 'stair' + (i<=f.s ? ' on' : '') + (i===f.s ? ' cur' : '') + (i===f.s && f.ok ? ' ok' : '');
+      st.querySelector('.tg').textContent = i===f.s ? f.tag : '';
+    });
+    lis.forEach(function(li,i){ li.className = i===fi ? 'cur' : ''; });
+  }
+  if(reduce){
+    stairs.forEach(function(st){ st.className = 'stair on'; });
+    stairs[2].className = 'stair on cur ok';
+    stairs[0].querySelector('.tg').textContent = 'FAIL';
+    stairs[1].querySelector('.tg').textContent = 'FAIL';
+    stairs[2].querySelector('.tg').textContent = 'PASS';
+    lis.forEach(function(li){ li.className = 'cur'; });
+  } else {
+    drawStairs();
+    var sec = $('#eskalation');
+    function tick(){ fi = (fi+1) % frames.length; drawStairs(); }
+    function startLoop(){ if(!lt){ lt = setInterval(tick, 2200); } }
+    function stopLoop(){ if(lt){ clearInterval(lt); lt = null; } }
+    if('IntersectionObserver' in window){
+      new IntersectionObserver(function(es){ es.forEach(function(e){ if(e.isIntersecting) startLoop(); else stopLoop(); }); },{threshold:.2}).observe(sec);
+    } else startLoop();
+  }
+
+  /* Problem-Balken */
+  var idee = $('#idee');
+  if(reduce || !('IntersectionObserver' in window)){ idee.classList.add('in'); }
+
+  /* Kopieren */
+  function fallbackCopy(text){
+    var ta = document.createElement('textarea');
+    ta.value = text; ta.setAttribute('readonly','');
+    ta.style.position = 'fixed'; ta.style.top = '0'; ta.style.left = '0'; ta.style.opacity = '0';
+    document.body.appendChild(ta); ta.select();
+    var ok = false;
+    try{ ok = document.execCommand('copy'); }catch(e){}
+    document.body.removeChild(ta);
+    return ok;
+  }
+  $$('[data-copy]').forEach(function(b){
+    b.addEventListener('click', function(){
+      var text = document.getElementById(b.getAttribute('data-copy')).textContent;
+      function done(ok){
+        var old = b.getAttribute('data-label') || b.textContent;
+        b.setAttribute('data-label', old);
+        b.textContent = ok ? 'Kopiert' : 'Markieren und kopieren';
+        if(ok) b.classList.add('copied');
+        setTimeout(function(){ b.textContent = old; b.classList.remove('copied'); }, 1600);
+      }
+      if(navigator.clipboard && navigator.clipboard.writeText){
+        navigator.clipboard.writeText(text).then(function(){ done(true); }, function(){ done(fallbackCopy(text)); });
+      } else { done(fallbackCopy(text)); }
+    });
+  });
+})();
+</script>
+</body>
+</html>

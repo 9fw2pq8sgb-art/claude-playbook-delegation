@@ -1,0 +1,12 @@
+{
+  "name": "playbook-delegation",
+  "description": "Opus plant, Sonnet und Haiku arbeiten: Delegation mit Playbooks",
+  "owner": { "name": "9fw2pq8sgb-art" },
+  "plugins": [
+    {
+      "name": "playbook",
+      "source": "./plugins/playbook",
+      "description": "Skill /playbook:delegieren: Opus schreibt Playbooks, Sonnet 5.5 und Haiku 5.5 führen aus, Opus prüft nach"
+    }
+  ]
+}
