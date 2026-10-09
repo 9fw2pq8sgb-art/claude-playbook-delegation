@@ -1,0 +1,6 @@
+{
+  "name": "session-koordination",
+  "version": "1.0.0",
+  "description": "Lokale Claude-Code-Sessions wissen voneinander; ein laufender Blender-Render blockiert parallele Blender-Starts, die andere Session wartet auf das Prozessende",
+  "author": { "name": "9fw2pq8sgb-art" }
+}

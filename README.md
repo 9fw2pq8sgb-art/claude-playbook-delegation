@@ -149,6 +149,38 @@ Die Annahmen stehen in [`tools/ersparnis.py`](tools/ersparnis.py). Eigene Werte 
 
 ---
 
+## Zusatz-Plugin: Session-Koordination
+
+Wer mehrere Claude-Code-Sessions parallel laufen lässt, sollte dieses Plugin dazu installieren. Ein Beispiel: In Session 1 läuft ein Blender-Render. Ohne das Plugin startet Session 2 einfach einen zweiten Blender, und beide bremsen sich gegenseitig aus. Mit dem Plugin wartet Session 2, bis der Render fertig ist.
+
+```bash
+claude plugin install session-koordination@playbook-delegation
+```
+
+Danach in offenen Sessions `/reload-plugins` eintippen, neue Sessions laden es von selbst.
+
+**Was es macht:**
+
+| Moment | Verhalten |
+|---|---|
+| Session startet | Die Session trägt sich in `~/.claude/coord/` ein und erfährt, welche anderen Sessions laufen und ob Blender gerade belegt ist. |
+| Claude will Blender starten (Bash oder Blender-MCP) | Ein Hook prüft, ob schon ein Blender-Render im Hintergrund läuft (`-b` / `--background`). Falls ja, wird der Start blockiert. Claude erfährt die PID und die Session, die den Render gestartet hat, wartet auf das Ende des Prozesses und startet erst danach. |
+| Session endet | Die Session trägt sich wieder aus. |
+
+**Eigenschaften:**
+- Es kostet keine Tokens pro Nachricht. Claude bekommt nur beim Start einer Session und im Konfliktfall einen Hinweis.
+- Der Hook prüft die echten Prozesse und nicht bloß eine Sperrdatei. Stürzt eine Session ab, bleibt deshalb keine verwaiste Sperre zurück.
+- Starts kurz nacheinander fängt eine Reservierung ab. Sie gilt 90 Sekunden, bis der Prozess sichtbar ist. Starten zwei Sessions im selben Sekundenbruchteil, können ausnahmsweise beide durchkommen.
+- Für weitere Programme (zum Beispiel ffmpeg) lässt sich in `~/.claude/coord/config.json` unter `resources` je ein Eintrag mit drei regulären Ausdrücken anlegen: `command`, `process` und `mcp`. Die Vorlage ist der Blender-Eintrag in `scripts/coord.py`.
+
+**Grenzen:**
+- Es wirkt nur auf **einem Rechner**. Ein Render auf Rechner A blockiert nichts auf Rechner B.
+- Nur ein Blender-Render im Hintergrund zählt als „belegt“. Eine offene Blender-Oberfläche blockiert nichts.
+- Voraussetzung ist `python3` (bei macOS mit den Command Line Tools dabei). Windows ist nicht getestet.
+- Ein kaputter Hook blockiert nie: Bei jedem internen Fehler lässt er den Aufruf durch.
+
+---
+
 ## Optional: immer aktiv
 
 Der Skill läuft, wenn er aufgerufen wird. Soll er immer gelten, kommen diese Zeilen in die eigene `~/.claude/CLAUDE.md`:
@@ -187,6 +219,9 @@ Der zweite Befehl entfernt das Plugin mit.
 .claude-plugin/marketplace.json               # Katalog für "marketplace add"
 plugins/playbook/.claude-plugin/plugin.json
 plugins/playbook/skills/delegieren/SKILL.md   # der Skill
+plugins/session-koordination/hooks/hooks.json # Hooks der Session-Koordination
+plugins/session-koordination/scripts/coord.py # Logik (Python, nur Standardbibliothek)
+plugins/session-koordination/tests/           # Tests
 docs/anleitung.html                           # interaktive Anleitung (GitHub Pages)
 docs/img/*.svg                                # Grafiken dieser README
 tools/ersparnis.py                            # Kostenrechnung, erzeugt ersparnis.svg
